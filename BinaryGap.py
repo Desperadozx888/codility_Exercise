@@ -114,3 +114,45 @@ def solution(A):
     return 1 if len(seen) == n else 0
 
     pass
+
+#MaxCounters
+#Calculate the values of counters after applying all alternating operations: increase counter by 1; set value of all counters to current maximum.
+def solution(N, A):
+    # Implement your solution here
+    counters = [0] * N
+    current_max = 0
+    last_max = 0
+    
+    for value in A:
+        if 1 <= value <= N:
+            if counters[value - 1] < last_max:
+                counters[value - 1] = last_max
+            counters[value - 1] += 1
+            if counters[value - 1] > current_max:
+                current_max = counters[value - 1]
+        elif value == N + 1:
+            last_max = current_max
+    
+    for i in range(N):
+        if counters[i] < last_max:
+            counters[i] = last_max
+    
+    return counters
+    
+    pass
+
+
+#MissingInteger
+#Find the smallest positive integer that does not occur in a given sequence.
+def solution(A):
+    # Filter out non-positive numbers and create a set of positive numbers
+    positive_numbers = set(x for x in A if x > 0)
+    
+    # Start checking from 1 upwards for the first missing positive integer
+    smallest_missing = 1
+    
+    while smallest_missing in positive_numbers:
+        smallest_missing += 1
+    
+    return smallest_missing
+    pass
