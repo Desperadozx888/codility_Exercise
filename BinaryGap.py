@@ -156,3 +156,66 @@ def solution(A):
     
     return smallest_missing
     pass
+
+
+#PassingCars
+#Count the number of passing cars on the road.
+def solution(A):
+    eastbound_cars = 0
+    passing_pairs = 0
+    
+    for car in A:
+        if car == 0:
+            eastbound_cars += 1
+        elif car == 1:
+            passing_pairs += eastbound_cars
+            if passing_pairs > 1_000_000_000:
+                return -1
+    
+    return passing_pairs
+#CountDiv
+def solution(A, B, K):
+    # Count the multiples of K up to B
+    count_up_to_B = B // K
+    
+    # Count the multiples of K up to A-1
+    count_up_to_A_minus_1 = (A - 1) // K
+    
+    # The count of multiples of K in the range [A, B]
+    return count_up_to_B - count_up_to_A_minus_1
+    pass
+
+#GenomicRangeQuery
+#Find the minimal nucleotide from a range of sequence DNA.
+def solution(S, P, Q):
+    N = len(S)
+    M = len(P)
+
+    # Create prefix sums for each nucleotide
+    prefix_A = [0] * (N + 1)
+    prefix_C = [0] * (N + 1)
+    prefix_G = [0] * (N + 1)
+    prefix_T = [0] * (N + 1)
+
+    for i in range(1, N + 1):
+        prefix_A[i] = prefix_A[i - 1] + (1 if S[i - 1] == 'A' else 0)
+        prefix_C[i] = prefix_C[i - 1] + (1 if S[i - 1] == 'C' else 0)
+        prefix_G[i] = prefix_G[i - 1] + (1 if S[i - 1] == 'G' else 0)
+        prefix_T[i] = prefix_T[i - 1] + (1 if S[i - 1] == 'T' else 0)
+
+    result = []
+
+    for k in range(M):
+        start = P[k]
+        end = Q[k] + 1
+
+        if prefix_A[end] - prefix_A[start] > 0:
+            result.append(1)
+        elif prefix_C[end] - prefix_C[start] > 0:
+            result.append(2)
+        elif prefix_G[end] - prefix_G[start] > 0:
+            result.append(3)
+        else:
+            result.append(4)
+
+    return result
