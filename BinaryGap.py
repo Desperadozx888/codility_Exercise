@@ -219,3 +219,28 @@ def solution(S, P, Q):
             result.append(4)
 
     return result
+
+#MinAvgTwoSlice
+#Find the minimal average of any slice containing at least two elements.
+def solution(A):
+    # Implement your solution here
+    N = len(A)
+    min_avg = float('inf')
+    min_index = 0
+
+    for i in range(N - 1):
+        # Check slice of size 2
+        avg2 = (A[i] + A[i + 1]) / 2.0
+        if avg2 < min_avg:
+            min_avg = avg2
+            min_index = i
+
+        # Check slice of size 3
+        if i < N - 2:
+            avg3 = (A[i] + A[i + 1] + A[i + 2]) / 3.0
+            if avg3 < min_avg:
+                min_avg = avg3
+                min_index = i
+
+    return min_index
+    pass
