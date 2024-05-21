@@ -95,3 +95,19 @@ def solution(X, A):
             return time
     
     return -1
+
+def solution(A):
+    # Implement your solution here
+    n = len(A)
+    seen = set()
+    
+    for number in A:
+        if number < 1 or number > n:
+            return 0
+        if number in seen:
+            return 0
+        seen.add(number)
+    
+    return 1 if len(seen) == n else 0
+
+    pass
