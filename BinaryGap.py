@@ -1,9 +1,11 @@
+#Swap the Last int for the First int in the List
 def solution(A, K):
     K = K % len(A)
     return A[-K:] + A[:-K]
     # Implement your solution here
     pass
 
+#Binary Gap
 def solution(self, N):
     # Convert the integer to a binary string and strip the '0b' prefix
     binary_rep = bin(N)[2:]
@@ -26,3 +28,12 @@ def solution(self, N):
                 current_gap += 1
         
     return max_gap
+
+#OddOccurrencesInArray
+def solution(A):
+    # Implement your solution here
+    result = 0
+    for number in A:
+        result ^= number
+    return result
+    pass
