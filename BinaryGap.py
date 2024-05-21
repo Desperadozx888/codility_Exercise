@@ -37,3 +37,44 @@ def solution(A):
         result ^= number
     return result
     pass
+
+#Count a minimal number of jumps from position X to Y.
+def solution(X, Y, D):
+    # Implement your solution here
+    Z = Y - X
+    if (Z % D) == 0:
+        R = Z//D
+        return R
+    else:
+        R = (Z//D) + 1
+        return R
+    pass
+
+#PermMissingElem
+def solution(A):
+    N = len(A)
+    # The sum of the first N+1 natural numbers
+    total_sum = (N + 1) * (N + 2) // 2
+    # Subtract the sum of the array elements from the total sum
+    array_sum = sum(A)
+    missing_element = total_sum - array_sum
+    return missing_element
+    pass
+
+#TapeEquilibrium
+def solution(A):
+    # Implement your solution here
+    total_sum = sum(A)
+    left_sum = 0
+    min_diff = float('inf')
+    
+    # Iterate through the array and calculate the difference
+    for i in range(len(A) - 1):
+        left_sum += A[i]
+        right_sum = total_sum - left_sum
+        diff = abs(left_sum - right_sum)
+        if diff < min_diff:
+            min_diff = diff
+            
+    return min_diff
+    pass
