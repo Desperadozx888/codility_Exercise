@@ -96,6 +96,9 @@ def solution(X, A):
     
     return -1
 
+
+#PermCheck
+#Check whether array A is a permutation.
 def solution(A):
     # Implement your solution here
     n = len(A)
