@@ -78,3 +78,20 @@ def solution(A):
             
     return min_diff
     pass
+
+#FrogRiverOne
+#Find the earliest time when a frog can jump to the other side of a river.
+def solution(X, A):
+    covered_positions = set()
+    total_positions = 0
+
+    for time in range(len(A)):
+        position = A[time]
+        if position not in covered_positions:
+            covered_positions.add(position)
+            total_positions += 1
+        
+        if total_positions == X:
+            return time
+    
+    return -1
