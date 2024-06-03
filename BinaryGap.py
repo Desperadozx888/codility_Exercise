@@ -244,3 +244,32 @@ def solution(A):
 
     return min_index
     pass
+
+#We are given two strings P and Q, each consisting of N lowercase English letters. 
+#For each position in the strings, we have to choose one letter from either P or Q, to construct a new string S, such that the number of distinct letters in S is minimal. 
+#Our task is to find the number of distinct letters in the resulting string S.
+def solution(P, Q):
+    # Implement your solution here
+    all_strings = generate_all_strings(P, Q)
+    min_distinct_count = float('inf')
+    
+    for s in all_strings:
+        distinct_count = len(set(s))
+        if distinct_count < min_distinct_count:
+            min_distinct_count = distinct_count
+    
+    return min_distinct_count
+    pass
+    
+
+def generate_all_strings(P, Q):
+    from itertools import product
+    
+    N = len(P)
+    all_strings = set()
+    
+    for choices in product((0, 1), repeat=N):
+        S = ''.join(P[i] if choice == 0 else Q[i] for i, choice in enumerate(choices))
+        all_strings.add(S)
+    
+    return all_strings
