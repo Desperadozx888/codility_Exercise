@@ -273,3 +273,106 @@ def generate_all_strings(P, Q):
         all_strings.add(S)
     
     return all_strings
+
+#An array A consisting of N integers, returns the number of distinct values in array A.
+def solution(A):
+    # Implement your solution here
+    # Use a set to store unique elements
+    unique_elements = set(A)
+    
+    # The number of distinct elements is the size of the set
+    return len(unique_elements)
+    pass
+
+#A non-empty array A consisting of N integers is given. The product of triplet (P, Q, R) equates to A[P] * A[Q] * A[R] (0 ≤ P < Q < R < N).
+def solution(A):
+    # Implement your solution here
+    # Sort the array
+    A.sort()
+    
+    # Calculate the product of the three largest numbers
+    max_product_end = A[-1] * A[-2] * A[-3]
+    
+    # Calculate the product of the two smallest numbers and the largest number
+    max_product_beginning = A[0] * A[1] * A[-1]
+    
+    # Return the maximum of these two products
+    return max(max_product_end, max_product_beginning)
+    pass
+
+#An array A consisting of N integers is given. A triplet (P, Q, R) is triangular if 0 ≤ P < Q < R < N 
+def solution(A):
+    # Implement your solution here
+    # Sort the array
+    A.sort()
+    
+    # Check consecutive triplets in the sorted array
+    for i in range(len(A) - 2):
+        if A[i] + A[i+1] > A[i+2]:
+            return 1
+    
+    # If no triangular triplet is found, return 0
+    return 0
+    pass
+
+
+#We draw N discs on a plane. The discs are numbered from 0 to N − 1. 
+#An array A of N non-negative integers, specifying the radiuses of the discs, is given. 
+#The J-th disc is drawn with its center at (J, 0) and radius A[J].
+
+We say that the J-th disc and K-th disc intersect if J ≠ K and the J-th and K-th discs have at least one common point (assuming that the discs contain their borders).
+def solution(A):
+    # Implement your solution here
+    # Create a list to hold the start and end points of the discs
+    disc_points = []
+    for i, a in enumerate(A):
+        disc_points += [(i-a, 'L'), (i+a, 'R')]
+
+    # Sort the list by the points, and in case of a tie, 'L' comes before 'R'
+    disc_points.sort(key=lambda x: (x[0], x[1]))
+
+    # Initialize the count of intersections and active discs
+    intersections = 0
+    active_discs = 0
+
+    # Loop through the disc points
+    for point in disc_points:
+        if point[1] == 'L':  # If it's a start of a disc
+            intersections += active_discs
+            active_discs += 1
+        else:  # If it's the end of a disc
+            active_discs -= 1
+
+        # If the number of intersections exceeds 10^7, return -1
+        if intersections > 10**7:
+            return -1
+
+    return intersections
+    pass
+
+#A string S consisting of N characters is considered to be properly nested if any of the following conditions is true
+def solution(S):
+    # Implement your solution here
+    # A stack to keep track of opening brackets
+    stack = []
+    
+    # A dictionary to hold matching pairs of brackets
+    matching_brackets = {')': '(', ']': '[', '}': '{'}
+    
+    # Iterate through each character in the string
+    for char in S:
+        # If it's an opening bracket, push onto the stack
+        if char in "([{":
+            stack.append(char)
+        # If it's a closing bracket
+        elif char in ")]}":
+            # If there are no opening brackets or if the last does not match,
+            # then the string is not properly nested.
+            if not stack or stack[-1] != matching_brackets[char]:
+                return 0
+            # Pop from stack as we have found a valid pair.
+            stack.pop()
+    
+    # After processing all characters, check if there are any unmatched brackets left.
+    return 1 if not stack else 0
+    pass
