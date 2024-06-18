@@ -376,3 +376,81 @@ def solution(S):
     # After processing all characters, check if there are any unmatched brackets left.
     return 1 if not stack else 0
     pass
+
+#Fish
+#N voracious fish are moving along a river. Calculate how many fish are alive.
+def solution(A, B):
+    # Implement your solution here
+    # Stack to keep track of fish moving downstream
+    downstream = []
+    # Counter for fish moving upstream that haven't met a downstream fish
+    survivors = 0
+    
+    for i in range(len(A)):
+        # If the fish is moving downstream, add it to the stack
+        if B[i] == 1:
+            downstream.append(A[i])
+        else:
+            # Fish is moving upstream, check if it meets any fish moving downstream
+            while downstream:
+                # If the downstream fish is bigger, upstream fish gets eaten
+                if downstream[-1] > A[i]:
+                    break
+                # If the upstream fish is bigger, eat the downstream fish
+                else:
+                    downstream.pop()
+            # If no downstream fish are left, the upstream fish survives
+            if not downstream:
+                survivors += 1
+    
+    # The total number of survivors is the sum of upstream survivors and remaining downstream fish
+    return survivors + len(downstream)
+    pass
+
+#Nesting
+#Determine whether a given string of parentheses (single type) is properly nested.
+def solution(S):
+    # A stack to keep track of opening parentheses
+    stack = []
+    
+    # Iterate through each character in the string
+    for char in S:
+        # If it's an opening parenthesis, push onto the stack
+        if char == '(':
+            stack.append(char)
+        # If it's a closing parenthesis
+        elif char == ')':
+            # If there are no opening parentheses or if the last does not match,
+            # then the string is not properly nested.
+            if not stack or stack[-1] != '(':
+                return 0
+            # Pop from stack as we have found a valid pair.
+            stack.pop()
+    
+    # After processing all characters, check if there are any unmatched parentheses left.
+    return 1 if not stack else 0
+    pass
+
+#StoneWall
+#Cover the "Manhattan skyline" using the minimum number of rectangles.
+def solution(H):
+    # Implement your solution here
+     # Stack to keep track of the heights of the blocks
+    stack = []
+    # Counter for the number of blocks
+    block_count = 0
+    
+    # Iterate through each height in the array
+    for height in H:
+        # Remove all blocks that are higher than the current height
+        while stack and stack[-1] > height:
+            stack.pop()
+        
+        # If the stack is empty or the current height is different from the last block's height
+        if not stack or stack[-1] < height:
+            # Increase the block count and add the new height to the stack
+            block_count += 1
+            stack.append(height)
+    
+    return block_count
+    pass
