@@ -454,3 +454,83 @@ def solution(H):
     
     return block_count
     pass
+
+#Dominator
+#Find an index of an array such that its value occurs at more than half of indices in the array.
+def solution(A):
+    # Implement your solution here
+    size = 0
+    value = None
+    for element in A:
+        if size == 0:
+            size += 1
+            value = element
+        else:
+            if element != value:
+                size -= 1
+            else:
+                size += 1
+
+    candidate = -1
+    if size > 0:
+        candidate = value
+
+    count = 0
+    index = -1
+    for i in range(len(A)):
+        if A[i] == candidate:
+            count += 1
+            index = i
+
+    if count > len(A) // 2:
+        return index
+    else:
+        return -1
+    pass
+
+#EquiLeader
+#Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.
+def solution(A):
+    N = len(A)
+    
+    # Step 1: Find a candidate for the leader
+    size = 0
+    candidate = None
+    
+    for value in A:
+        if size == 0:
+            candidate = value
+            size += 1
+        else:
+            if value == candidate:
+                size += 1
+            else:
+                size -= 1
+    
+    # Step 2: Verify the candidate is indeed the leader
+    count = 0
+    for value in A:
+        if value == candidate:
+            count += 1
+    
+    if count <= N // 2:
+        return 0  # No leader in the array
+    
+    leader = candidate
+    total_leader_count = count
+    
+    # Step 3: Find equi leaders
+    equi_leaders = 0
+    left_leader_count = 0
+    
+    for index in range(N):
+        if A[index] == leader:
+            left_leader_count += 1
+        
+        left_size = index + 1
+        right_size = N - left_size
+        
+        if left_leader_count > left_size // 2 and (total_leader_count - left_leader_count) > right_size // 2:
+            equi_leaders += 1
+    
+    return equi_leaders
